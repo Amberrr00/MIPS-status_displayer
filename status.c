@@ -233,7 +233,7 @@ void simulator::setMemory(int address, code data, bool decomp) {
 	memory[address] = data;
     sprintf(memoryText[address].hextext, "0x%08x\t", memory[address]);
     char* convertascii = (char*)&memory[address];
-    for(int i = 0;i<4;++i){
+    for(int i = 0; i<4; ++i){
         if(isascii(convertascii[i])&& isprint(convertascii[i])){
             memoryText[address].asciitext[i] = convertascii[i];
         }else{
@@ -287,13 +287,43 @@ code simulator::getMem(int address) {
 	return memory[address];
 }
 
-int simulator::loadMemory(string fname)
+int simulator::loadMemoryBin(string fname)
 {
     ifstream in(fname, ios::in|ios::binary);
     in.read((char*)memory, sizeof(code)*memsize);
     in.close();
-    for(int i=0;i<memsize;++i){
+    for(int i=0; i<memsize; ++i){
         setMemory(i*4,memory[i]);
     }
     return 1;
+}
+
+int simulator::loadMemoryTxt(string fname)
+{
+	ifstream in;
+	string instruction;
+	in.open(fname, ios::in);
+	int index = 0;
+	if(in.is_open()){
+		while(getline(in, instruction)){
+			memory[index] = convertToBinary(instruction);
+		}
+	}
+	in.close();
+	for(int i=0; i<memsize; ++i){
+        setMemory(i*4,memory[i]);
+    }
+	return 1;
+}
+
+code simulator::convertToBinary(string instruct)
+{
+	code val;
+	for(int i = 0, len = instruct.length(); i < len; i++){
+		val << 1;
+		if(instruct[i] == 1){
+			val += 1;
+		}
+	}
+	return val;
 }

@@ -40,6 +40,7 @@ private:
 	~simulator();
     code breakpoint;
     code changedMemaddr;
+	code convertToBinary(string intruct);
 
 public:
 	vector<memshow> memoryText;
@@ -64,7 +65,8 @@ public:
     code getBreakpoint() const;
     void setBreakpoint(const code &value);
 
-	int loadMemory(string fname);
+	int loadMemoryBin(string fname);
+	int loadMemoryTxt(string fname);
 };
 
 #endif
