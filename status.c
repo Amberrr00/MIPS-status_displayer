@@ -304,3 +304,14 @@ int simulator::getSize()
 code simulator::getMem(int address) {
 	return memory[address];
 }
+
+int simulator::loadMemory(string fname)
+{
+    ifstream in(fname, ios::in|ios::binary);
+    in.read((char*)memory, sizeof(code)*memsize);
+    in.close();
+    for(int i=0;i<memsize;++i){
+        setMemory(i*4,memory[i]);
+    }
+    return 1;
+}
