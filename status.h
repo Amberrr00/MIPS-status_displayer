@@ -21,12 +21,14 @@ using namespace std;
 
 typedef unsigned int code;
 
+/*content of memory unit*/
 struct memshow {
     char address[16];
     char hextext[16];
     char asciitext[64];
 };
 
+/*status of MIPS simulator*/
 class simulator {
 private:
 	int memsize;
@@ -63,9 +65,6 @@ public:
     int getSize();
     code getBreakpoint() const;
     void setBreakpoint(const code &value);
-
-    int exportMemory(string fname);
-    int loadMemory(string fname);
 };
 
 #endif
