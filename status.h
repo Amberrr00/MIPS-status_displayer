@@ -60,8 +60,6 @@ public:
     code getchangedMemAddr();
 	code getMem(int address);
 
-	void loadbinary();
-
     int getSize();
     code getBreakpoint() const;
     void setBreakpoint(const code &value);

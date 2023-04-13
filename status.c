@@ -278,24 +278,6 @@ code simulator::getchangedMemAddr()
     return n;
 }
 
-void simulator::loadbinary() {
-	for (int i = 0; i < memsize; ++i) {
-        setMemory(i*4, 0);
-        sprintf(memoryText[i].address,"0x%08x\t",i*4);
-	}
-    if(compiledflag){
-        initPCaddr = bin.text.origin;
-        for (int i = 0; i < bin.text.length; ++i) {
-            setMemory(i*4 + bin.text.origin, bin.text.codes[i],true);
-        }
-        for (int i = 0; i < bin.data.length; ++i) {
-            setMemory(i*4 + bin.data.origin, bin.data.codes[i]);
-        }
-    }
-    changedMemaddr = 0;
-    reset();
-}
-
 int simulator::getSize()
 {
     return memsize;
